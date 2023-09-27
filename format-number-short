@@ -1,7 +1,4 @@
-<?php
-/**
- * Plugin Name: Format Number Short Free Plugin
- * Plugin URI: https://rugator.com
+
  * Description: Plugin para formatear números reducir la unidad más pequeña. Eje: 1000 = 1K | 1000000 = 1M | 1000000000 = 1B [fns_format_number]1000[/fns_format_number].
  * Version: 1.0.0
  *
@@ -10,9 +7,9 @@
  *
  * Author: RUGATOR
  * Author URI: https://rugator.com/
- * License: GPL v2 or later
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Update URI: https://rugator.com/
+ * License: MIT
+ * License URI: https://opensource.org/license/mit/
+ * Update URI: https://github.com/RUGATOR-TECHNOLOGY/format-number-short
  * Text Domain: format-number-short
  * Domain Path: /languages
  */
