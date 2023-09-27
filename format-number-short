@@ -85,4 +85,8 @@ function format_number($atts, $content = null) {
     // Si el contenido no es un número válido, se devuelve sin cambios
     return $content;
 }
-add_shortcode('rugator_format_number_short', 'rugator-format-number-short', 'format_number');
+add_shortcode('rugator_format_number_short', 'rugator-format-number-short', 'rugator_format_number_short_shortcode', 'rugator-format-number-short_shortcode');
+remove_shortcode(
+    string $tag
+);
+shortcode_exists();
