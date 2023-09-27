@@ -1,20 +1,20 @@
 <?php
- /**
- * Plugin Name: 		Format Number Short Free Plugin
- * Plugin URI: 			https://rugator.com
- * Description: 		Plugin para formartear números reducir la unidad más pequeña. Eje: 1000 = 1K | 1000000 = 1M | 1000000000 = 1B [shortcode]1000[/shortcode].
- * Version: 			1.0.0
+/**
+ * Plugin Name: Format Number Short Free Plugin
+ * Plugin URI: https://rugator.com
+ * Description: Plugin para formatear números reducir la unidad más pequeña. Eje: 1000 = 1K | 1000000 = 1M | 1000000000 = 1B [rugator_format_number_short]1000[/rugator_format_number_short].
+ * Version: 1.0.0
  *
- * Requires at least: 	4.0
- * Requires PHP: 		5.6
+ * Requires at least: 4.0
+ * Requires PHP: 5.6
  *
- * Author: 				RUGATOR
- * Author URI:			https://rugator.com/
- * License: 			GPL v2 or later
- * License URI: 		https://www.gnu.org/licenses/gpl-2.0.html
- * Update URI: 			https://rugator.com/
- * Text Domain: 		format-number-short
- * Domain Path: 		/languages 
+ * Author: RUGATOR
+ * Author URI: https://rugator.com/
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Update URI: https://rugator.com/
+ * Text Domain: format-number-short
+ * Domain Path: /languages
  */
 
 // Verifica si se accede directamente al archivo del plugin y redirige al usuario
@@ -22,48 +22,13 @@ if (!defined('ABSPATH')) {
     exit; // Sal del archivo si se accede directamente
 }
 
-/**
- * Adds a privacy policy statement.
- */
-function wporg_add_privacy_policy_content() {
-	if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
-		return;
-	}
-	$content = '<p class="privacy-policy-tutorial">' . __( 'Some introductory content for the suggested text.', 'text-domain' ) . '</p>'
-			. '<strong class="privacy-policy-tutorial">' . __( 'Suggested Text:', 'my_plugin_textdomain' ) . '</strong> '
-			. sprintf(
-				__( 'When you leave a comment on this site, we send your name, email address, IP address and comment text to example.com. Example.com does not retain your personal data. The example.com privacy policy is <a href="%1$s" target="_blank">here</a>.', 'text-domain' ),
-				'https://rugator.com/privacy'
-			);
-	wp_add_privacy_policy_content( 'Example Plugin', wp_kses_post( wpautop( $content, false ) ) );
+// Eliminar el shortcode si ya está registrado
+if (shortcode_exists('rugator_format_number_short')) {
+    remove_shortcode('rugator_format_number_short');
 }
-
-add_action( 'admin_init', 'wporg_add_privacy_policy_content' );
-
-
-// Hook to register deletion and scheduling functions
-add_action('format_number_short_schedule', 'schedule_account_deletion');
-register_activation_hook(__FILE__, 'pluginprefix_activate');
-
-
-// * Deactivation hook.
-function pluginprefix_deactivate() {
-	// Unregister the post type, so the rules are no longer in memory.
-	unregister_post_type( 'book' );
-	// Clear the permalinks to remove our post type's rules from the database.
-	flush_rewrite_rules();
-}
-register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
-
-// Uninstall Plugin
-register_uninstall_hook(
-	__FILE__,
-	'pluginprefix_function_to_run'
-);
-
 
 // Función formatear números: Ejemplo 1000 = 1K
-function format_number($atts, $content = null) {
+function format_number_shortcode($atts, $content = null) {
     // Eliminar espacios en blanco alrededor del contenido
     $content = trim($content);
 
@@ -85,8 +50,5 @@ function format_number($atts, $content = null) {
     // Si el contenido no es un número válido, se devuelve sin cambios
     return $content;
 }
-add_shortcode('rugator_format_number_short', 'rugator-format-number-short', 'rugator_format_number_short_shortcode', 'rugator-format-number-short_shortcode');
-remove_shortcode(
-    string $tag
-);
-shortcode_exists();
+
+add_shortcode('rugator_format_number_short', 'format_number_shortcode');
