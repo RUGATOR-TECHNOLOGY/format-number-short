@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Format Number Short Free Plugin
  * Plugin URI: https://rugator.com
- * Description: Plugin para formatear números reducir la unidad más pequeña. Eje: 1000 = 1K | 1000000 = 1M | 1000000000 = 1B [rugator_format_number_short]1000[/rugator_format_number_short].
+ * Description: Plugin para formatear números reducir la unidad más pequeña. Eje: 1000 = 1K | 1000000 = 1M | 1000000000 = 1B [fns_format_number]1000[/fns_format_number].
  * Version: 1.0.0
  *
  * Requires at least: 4.0
@@ -22,13 +22,30 @@ if (!defined('ABSPATH')) {
     exit; // Sal del archivo si se accede directamente
 }
 
+if (!function_exists('fns_wporg_add_privacy_policy_content')) {
+    /**
+     * Adds a privacy policy statement.
+     */
+    function fns_wporg_add_privacy_policy_content() {
+        $content = '<p class="privacy-policy-tutorial">' . __('Some introductory content for the suggested text.', 'format-number-short') . '</p>'
+            . '<strong class="privacy-policy-tutorial">' . __('Suggested Text:', 'format-number-short') . '</strong> '
+            . sprintf(
+                __('When you leave a comment on this site, we send your name, email address, IP address and comment text to example.com. Example.com does not retain your personal data. The example.com privacy policy is <a href="%1$s" target="_blank">here</a>.', 'format-number-short'),
+                'https://rugator.com/privacy'
+            );
+        if (function_exists('wp_add_privacy_policy_content')) {
+            wp_add_privacy_policy_content('Example Plugin', wp_kses_post(wpautop($content, false)));
+        }
+    }
+}
+
 // Eliminar el shortcode si ya está registrado
-if (shortcode_exists('rugator_format_number_short')) {
-    remove_shortcode('rugator_format_number_short');
+if (shortcode_exists('fns_rugator_format_number_short')) {
+    remove_shortcode('fns_rugator_format_number_short');
 }
 
 // Función formatear números: Ejemplo 1000 = 1K
-function format_number_shortcode($atts, $content = null) {
+function fns_format_number_shortcode($atts, $content = null) {
     // Eliminar espacios en blanco alrededor del contenido
     $content = trim($content);
 
@@ -50,5 +67,8 @@ function format_number_shortcode($atts, $content = null) {
     // Si el contenido no es un número válido, se devuelve sin cambios
     return $content;
 }
+// Registrar el shortcode original
+add_shortcode('fns_rugator_format_number_short', 'fns_format_number_shortcode');
 
-add_shortcode('rugator_format_number_short', 'format_number_shortcode');
+// Registrar un alias más corto del shortcode
+add_shortcode('fns_format_number', 'fns_format_number_shortcode');
