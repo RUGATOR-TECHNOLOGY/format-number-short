@@ -1,0 +1,40 @@
+# Copyright (C) 2023 Rugator Format Number Short
+# format-number-short.pot
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Rugator Format Number Short 1.0.0\n"
+"Last-Translator: Rugator Format Number Short <developer@rugator.com>\n"
+"Language-Team: Rugator Format Number short <developer@rugator.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-09-27 16:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Domain: format-number-short\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Loco https://localise.biz/"
+
+#. Name of the plugin
+msgid "Format Number Short Free Plugin"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://rugator.com"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://rugator.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Plugin para formatear números reducir la unidad más pequeña. Eje: 1000 = 1K "
+"| 1000000 = 1M | 1000000000 = 1B [rugator_format_number_short]"
+"1000[/rugator_format_number_short]."
+msgstr ""
+
+#. Author of the plugin
+msgid "RUGATOR"
+msgstr ""
